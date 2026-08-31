@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+
+# Local environments and caches
+.venv/
+venv/
+work/
+cache/
+
+# Model weights and generated media
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.wav
+*.mp3
+*.flac
+
+# Removed Microsoft browser-voice prototype
+app.js
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+

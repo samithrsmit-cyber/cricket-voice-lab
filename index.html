@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10222d" />
+    <title>Cricket Voice Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">Local commentary voice tester</p>
+        <h1 id="page-title">Cricket Voice Lab</h1>
+        <p class="lede">Generate expressive local commentary with Chatterbox. Your text and audio stay on this computer.</p>
+        <div class="status-tags" aria-label="Tool features">
+          <span>Local generation</span>
+          <span>English + Hindi ready</span>
+          <span>Chatterbox controls ready</span>
+        </div>
+      </section>
+
+      <section class="workbench" aria-label="Voice controls">
+        <div class="input-panel">
+          <div class="section-heading">
+            <div>
+              <p class="label">Commentary</p>
+              <h2>What should the commentator say?</h2>
+            </div>
+            <span id="character-count" class="character-count">0 / 5,000</span>
+          </div>
+          <textarea id="commentary" maxlength="5000" spellcheck="true">Kohli is waiting. The bowler runs in... and he launches it over long-on! That is a magnificent six!</textarea>
+          <p class="hint">Line breaks create a short pause. Use punctuation to shape the delivery.</p>
+          <div class="field engine-choice">
+            <label for="language">Commentary language</label>
+            <select id="language"><option value="en">English</option><option value="hi">Hindi</option></select>
+            <p class="hint">Chatterbox uses this language for the generated commentary.</p>
+          </div>
+          <div class="field">
+            <label for="reference-audio">Reference voice (for Chatterbox)</label>
+            <input id="reference-audio" type="file" accept="audio/*" />
+            <p class="hint">Optional. Add a clear 5–15 second WAV/MP3 sample later to keep one commentator voice.</p>
+          </div>
+        </div>
+
+        <div class="settings-panel">
+          <div class="field full-width">
+            <label for="preset">Commentary mood</label>
+            <select id="preset">
+              <option value="calm">Calm buildup</option>
+              <option value="standard" selected>Standard commentary</option>
+              <option value="boundary">Four or six</option>
+              <option value="wicket">Wicket moment</option>
+              <option value="final-over">Final-over drama</option>
+            </select>
+          </div>
+
+          <div class="control-grid four-controls">
+            <div class="field slider-field">
+              <div class="slider-label"><label for="rate">Pace</label><output id="rate-output" for="rate">Normal</output></div>
+              <input id="rate" type="range" min="-10" max="10" value="0" />
+              <div class="range-ends"><span>Slower</span><span>Faster</span></div>
+            </div>
+            <div class="field slider-field">
+              <div class="slider-label"><label for="volume">Energy</label><output id="volume-output" for="volume">80%</output></div>
+              <input id="volume" type="range" min="0" max="100" value="80" />
+              <div class="range-ends"><span>Quiet</span><span>Bold</span></div>
+            </div>
+            <div class="field slider-field">
+              <div class="slider-label"><label for="pitch">Tone</label><output id="pitch-output" for="pitch">Neutral</output></div>
+              <input id="pitch" type="range" min="-10" max="10" value="0" />
+              <div class="range-ends"><span>Lower</span><span>Higher</span></div>
+            </div>
+            <div class="field slider-field">
+              <div class="slider-label"><label for="exaggeration">Exaggeration</label><output id="exaggeration-output" for="exaggeration">0.45</output></div>
+              <input id="exaggeration" type="range" min="0" max="100" value="45" />
+              <div class="range-ends"><span>Natural</span><span>More emotion</span></div>
+            </div>
+          </div>
+          <details class="advanced-controls"><summary>Advanced Chatterbox controls</summary><p class="hint">These directly affect generated Chatterbox audio.</p><div class="advanced-grid">
+            <div class="field slider-field"><div class="slider-label"><label for="cfg-weight">Pace guidance</label><output id="cfg-weight-output" for="cfg-weight">0.50</output></div><input id="cfg-weight" type="range" min="0" max="100" value="50" /></div>
+            <div class="field slider-field"><div class="slider-label"><label for="temperature">Variation</label><output id="temperature-output" for="temperature">0.80</output></div><input id="temperature" type="range" min="10" max="140" value="80" /></div>
+            <div class="field slider-field"><div class="slider-label"><label for="repetition-penalty">Repetition guard</label><output id="repetition-penalty-output" for="repetition-penalty">1.20</output></div><input id="repetition-penalty" type="range" min="100" max="200" value="120" /></div>
+            <div class="field slider-field"><div class="slider-label"><label for="seed">Seed</label><output id="seed-output" for="seed">Random</output></div><input id="seed" type="number" min="0" max="999999" placeholder="Random" /></div>
+          </div></details>
+        </div>
+
+        <div class="actions" aria-live="polite">
+          <button id="speak" class="speak-button" type="button">
+            <span class="play-mark" aria-hidden="true">▶</span>
+            <span>Generate Chatterbox audio</span>
+          </button>
+          <button id="stop" class="secondary-button" type="button" disabled>Stop audio</button>
+          <button id="copy-settings" class="secondary-button" type="button">Copy Chatterbox settings</button>
+          <p id="status" class="status-message">Checking the local Chatterbox setup…</p>
+        </div>
+      </section>
+    </main>
+    <script src="chatterbox.js"></script>
+  </body>
+</html>
