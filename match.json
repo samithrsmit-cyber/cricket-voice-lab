@@ -1,0 +1,29 @@
+{
+  "match": {
+    "title": "Live Commentary Test",
+    "batting_team": "Aaliya Axis Bank",
+    "bowling_team": "City Challengers",
+    "innings": 1,
+    "overs_limit": 20,
+    "venue": "Community Cricket Ground"
+  },
+  "batting_order": [
+    "Arjun Nair",
+    "Rohan Das",
+    "Vikram Shah",
+    "Kiran Patel",
+    "Manu Joseph"
+  ],
+  "initial_state": {
+    "score": 0,
+    "wickets": 0,
+    "legal_balls": 0,
+    "striker": "Arjun Nair",
+    "non_striker": "Rohan Das",
+    "next_batter_index": 2,
+    "bowler": "Sameer Khan",
+    "partnership_runs": 0,
+    "partnership_balls": 0,
+    "recent_balls": []
+  }
+}
