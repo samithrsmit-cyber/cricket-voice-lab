@@ -3,108 +3,99 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#102a25" />
-    <title>Continuous Cricket Commentary</title>
+    <meta name="theme-color" content="#10222d" />
+    <title>Cricket Voice Lab</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app-shell">
-      <header class="scoreboard">
-        <div>
-          <p class="eyebrow">Continuous commentary test</p>
-          <h1 id="batting-team">Loading match…</h1>
-          <p class="match-line"><span id="bowling-team"></span> · <span id="venue"></span></p>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">Local commentary voice tester</p>
+        <h1 id="page-title">Cricket Voice Lab</h1>
+        <p class="lede">Generate expressive local commentary with Chatterbox. Your text and audio stay on this computer.</p>
+        <div class="status-tags" aria-label="Tool features">
+          <span>Local generation</span>
+          <span>English + Hindi ready</span>
+          <span>Chatterbox controls ready</span>
         </div>
-        <div class="score-block" aria-label="Current score">
-          <strong id="score">0/0</strong>
-          <span id="over">0.0 overs</span>
-        </div>
-      </header>
-
-      <section class="player-strip" aria-label="Players at the crease">
-        <div><span>Striker</span><strong id="striker">—</strong></div>
-        <div><span>Non-striker</span><strong id="non-striker">—</strong></div>
-        <div><span>Bowler</span><strong id="bowler">—</strong></div>
-        <div><span>Partnership</span><strong id="partnership">0 runs</strong></div>
       </section>
 
-      <section class="workspace">
-        <article class="panel scoring-panel">
-          <div class="panel-heading">
-            <div><p class="step">Step 1</p><h2>Select the result</h2></div>
-            <button id="undo" class="text-button" type="button" disabled>Undo last ball</button>
+      <section class="workbench" aria-label="Voice controls">
+        <div class="input-panel">
+          <div class="section-heading">
+            <div>
+              <p class="label">Commentary</p>
+              <h2>What should the commentator say?</h2>
+            </div>
+            <span id="character-count" class="character-count">0 / 5,000</span>
+          </div>
+          <textarea id="commentary" maxlength="5000" spellcheck="true">Kohli is waiting. The bowler runs in... and he launches it over long-on! That is a magnificent six!</textarea>
+          <p class="hint">Line breaks create a short pause. Use punctuation to shape the delivery.</p>
+          <div class="field engine-choice">
+            <label for="language">Commentary language</label>
+            <select id="language"><option value="en">English</option><option value="hi">Hindi</option></select>
+            <p class="hint">Chatterbox uses this language for the generated commentary.</p>
+          </div>
+          <div class="field">
+            <label for="reference-audio">Reference voice (for Chatterbox)</label>
+            <input id="reference-audio" type="file" accept="audio/*" />
+            <p class="hint">Optional. Add a clear 5–15 second WAV/MP3 sample later to keep one commentator voice.</p>
+          </div>
+        </div>
+
+        <div class="settings-panel">
+          <div class="field full-width">
+            <label for="preset">Commentary mood</label>
+            <select id="preset">
+              <option value="calm">Calm buildup</option>
+              <option value="standard" selected>Standard commentary</option>
+              <option value="boundary">Four or six</option>
+              <option value="wicket">Wicket moment</option>
+              <option value="final-over">Final-over drama</option>
+            </select>
           </div>
 
-          <div class="run-grid" aria-label="Ball result">
-            <button class="result-button" data-kind="runs" data-runs="0" type="button">0</button>
-            <button class="result-button" data-kind="runs" data-runs="1" type="button">1</button>
-            <button class="result-button" data-kind="runs" data-runs="2" type="button">2</button>
-            <button class="result-button" data-kind="runs" data-runs="3" type="button">3</button>
-            <button class="result-button boundary" data-kind="runs" data-runs="4" type="button"><strong>4</strong><span>Four</span></button>
-            <button class="result-button boundary" data-kind="runs" data-runs="6" type="button"><strong>6</strong><span>Six</span></button>
-            <button class="result-button" data-kind="runs" data-runs="5" type="button">5</button>
-            <button class="result-button" data-kind="runs" data-runs="7" type="button">7</button>
-            <button class="result-button wicket" data-kind="wicket" data-runs="0" type="button">OUT</button>
+          <div class="control-grid four-controls">
+            <div class="field slider-field">
+              <div class="slider-label"><label for="rate">Pace</label><output id="rate-output" for="rate">Normal</output></div>
+              <input id="rate" type="range" min="-10" max="10" value="0" />
+              <div class="range-ends"><span>Slower</span><span>Faster</span></div>
+            </div>
+            <div class="field slider-field">
+              <div class="slider-label"><label for="volume">Energy</label><output id="volume-output" for="volume">80%</output></div>
+              <input id="volume" type="range" min="0" max="100" value="80" />
+              <div class="range-ends"><span>Quiet</span><span>Bold</span></div>
+            </div>
+            <div class="field slider-field">
+              <div class="slider-label"><label for="pitch">Tone</label><output id="pitch-output" for="pitch">Neutral</output></div>
+              <input id="pitch" type="range" min="-10" max="10" value="0" />
+              <div class="range-ends"><span>Lower</span><span>Higher</span></div>
+            </div>
+            <div class="field slider-field">
+              <div class="slider-label"><label for="exaggeration">Exaggeration</label><output id="exaggeration-output" for="exaggeration">0.45</output></div>
+              <input id="exaggeration" type="range" min="0" max="100" value="45" />
+              <div class="range-ends"><span>Natural</span><span>More emotion</span></div>
+            </div>
           </div>
+          <details class="advanced-controls"><summary>Advanced Chatterbox controls</summary><p class="hint">These directly affect generated Chatterbox audio.</p><div class="advanced-grid">
+            <div class="field slider-field"><div class="slider-label"><label for="cfg-weight">Pace guidance</label><output id="cfg-weight-output" for="cfg-weight">0.50</output></div><input id="cfg-weight" type="range" min="0" max="100" value="50" /></div>
+            <div class="field slider-field"><div class="slider-label"><label for="temperature">Variation</label><output id="temperature-output" for="temperature">0.80</output></div><input id="temperature" type="range" min="10" max="140" value="80" /></div>
+            <div class="field slider-field"><div class="slider-label"><label for="repetition-penalty">Repetition guard</label><output id="repetition-penalty-output" for="repetition-penalty">1.20</output></div><input id="repetition-penalty" type="range" min="100" max="200" value="120" /></div>
+            <div class="field slider-field"><div class="slider-label"><label for="seed">Seed</label><output id="seed-output" for="seed">Random</output></div><input id="seed" type="number" min="0" max="999999" placeholder="Random" /></div>
+          </div></details>
+        </div>
 
-          <div class="extras-grid" aria-label="Extras">
-            <button class="result-button extra" data-kind="wide" data-runs="1" type="button">WD</button>
-            <button class="result-button extra" data-kind="no-ball" data-runs="1" type="button">NB</button>
-            <button class="result-button extra" data-kind="bye" data-runs="1" type="button">BYE</button>
-            <button class="result-button extra" data-kind="leg-bye" data-runs="1" type="button">LB</button>
-          </div>
-        </article>
-
-        <article class="panel field-panel">
-          <div class="panel-heading">
-            <div><p class="step">Step 2</p><h2>Where did the ball go?</h2></div>
-            <span id="selected-zone" class="selection-pill">Not selected</span>
-          </div>
-
-          <div class="field-map" aria-label="Cricket field positions">
-            <div class="boundary-ring" aria-hidden="true"></div>
-            <div class="pitch" aria-hidden="true"><span></span></div>
-            <button class="zone zone-third-man" data-zone="third man" type="button">Third man</button>
-            <button class="zone zone-point" data-zone="point" type="button">Point</button>
-            <button class="zone zone-cover" data-zone="cover" type="button">Cover</button>
-            <button class="zone zone-long-off" data-zone="long-off" type="button">Long-off</button>
-            <button class="zone zone-straight" data-zone="straight down the ground" type="button">Straight</button>
-            <button class="zone zone-long-on" data-zone="long-on" type="button">Long-on</button>
-            <button class="zone zone-midwicket" data-zone="midwicket" type="button">Midwicket</button>
-            <button class="zone zone-square-leg" data-zone="square leg" type="button">Square leg</button>
-            <button class="zone zone-fine-leg" data-zone="fine leg" type="button">Fine leg</button>
-          </div>
-
-          <button id="confirm-ball" class="confirm-button" type="button" disabled>Confirm delivery</button>
-          <p id="selection-summary" class="selection-summary">Choose a result. Field position is optional.</p>
-        </article>
-
-        <aside class="panel commentary-panel">
-          <div class="panel-heading">
-            <div><p class="step">Live output</p><h2>Qwen → Microsoft Ravi</h2></div>
-            <span id="engine-state" class="engine-state loading">Loading</span>
-          </div>
-
-          <div class="commentary-card" aria-live="polite">
-            <span>Speaking now</span>
-            <blockquote id="current-line">Press Start Commentary when the model is ready.</blockquote>
-          </div>
-
-          <div class="controls">
-            <button id="start-commentary" class="start-button" type="button" disabled>▶ Start commentary</button>
-            <button id="stop-commentary" class="stop-button" type="button" disabled>■ Stop</button>
-          </div>
-
-          <p id="status" class="status-message">Connecting to the local Qwen model…</p>
-          <p class="voice-line">Voice: <strong id="voice-name">Finding Microsoft Ravi…</strong></p>
-
-          <div class="history-block">
-            <div class="history-heading"><h3>Commentary history</h3><span id="line-count">0 lines</span></div>
-            <ol id="commentary-history"><li class="empty-history">Generated lines will appear here.</li></ol>
-          </div>
-        </aside>
+        <div class="actions" aria-live="polite">
+          <button id="speak" class="speak-button" type="button">
+            <span class="play-mark" aria-hidden="true">▶</span>
+            <span>Generate Chatterbox audio</span>
+          </button>
+          <button id="stop" class="secondary-button" type="button" disabled>Stop audio</button>
+          <button id="copy-settings" class="secondary-button" type="button">Copy Chatterbox settings</button>
+          <p id="status" class="status-message">Checking the local Chatterbox setup…</p>
+        </div>
       </section>
     </main>
-    <script src="commentary.js"></script>
+    <script src="chatterbox.js"></script>
   </body>
 </html>
